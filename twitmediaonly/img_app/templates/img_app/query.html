@@ -1,0 +1,175 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% block head %}
+	{{block.super}}
+	{% if query %}	
+		<title>{{query}} - rushview</title>
+		<meta name="description" content = "Media results for {{query}}">
+	
+	{% elif artist_name %}
+		<title>{{artist_name}} - rushview</title>
+		{% if page_obj %} 
+			{% if page_obj.0.description %}
+				<meta name="description" content = "{{page_obj.0.description}}">
+			{% else %}
+				<meta name="description" content = "{{artist_name}} Twitter media results">
+			{% endif %}
+		{% else %}
+			<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+		{% endif %}
+	
+	{% else %}
+		<title>No results - rushview</title>
+		<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	{% endif %}
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/query.css' %}">
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+	{{block.super}}
+	<h1>Display</h1>
+	{% if query %}
+		<!-- <p> {{query}} </p> -->
+		{% if display_order == "top" %}
+			<span class = "current-display">
+				<a href ="/search/{{query}}/page/0?order=top">Top</a>
+			</span>
+			<a href ="/search/{{query}}/page/0?order=recent">Recent</a>	
+		{% else %}
+
+			<a href ="/search/{{query}}/page/0?order=top">Top</a>
+			<span class = "current-display">
+				<a href ="/search/{{query}}/page/0?order=recent">Recent</a>	
+			</span>
+		{% endif %}
+		
+	
+	{% endif %}
+
+	{% if artist_name %}
+		<!-- <p> {{artist_name}} </p> -->
+		{% if display_order == "top" %}
+			<span class = "current-display">
+				<a href ="/name/{{artist_name}}/page/0?order=top">Top</a>
+			</span>
+			<a href ="/name/{{artist_name}}/page/0?order=recent">Recent</a>	
+		{% else %}
+
+			<a href ="/name/{{artist_name}}/page/0?order=top">Top</a>
+			<span class = "current-display">
+			
+				<a href ="/name/{{artist_name}}/page/0?order=recent">Recent</a>	
+			</span>
+		{% endif %}
+	{% endif %}			
+
+{% endblock sidebar %}
+
+
+{% block posts %}		
+
+	{% if page_obj %}		
+		{% for tweet in page_obj %}
+		<div class="post_container">
+			<div class = "post {{tweet.media_type}}">
+				<!-- <a href= {{tweet.href}}>  -->
+				<a href = "{% url 'img_app:post' tweet.tweet_id %}{{current_params}} ">
+				<img src = {{tweet.thumbnail}} alt = "{{tweet.tweet_text}}"></img>
+				</a>
+			</div>
+
+			<div class="post_score">
+				<span class = "post_reply_count">&#9993;{{tweet.reply_count}} </span>
+				<span class = "post_retweet_count">&#8646;{{tweet.retweet_count}} </span>
+				<span class = "post_like_count">&#10084;{{tweet.like_count}} </span>
+			</div>
+		</div>
+		{% endfor %}
+
+		
+
+	
+	{% else %}
+		<p>No matching results. </p>
+		{% if not authenticated %}
+			<div class = 'authenticate'>		
+				<a href="{% url 'img_app:authenticate' %}"><strong>Authorize Rushview to use its features.</strong></a>
+			</div>		
+		{% endif %}	
+		
+		
+	{% endif %}
+
+
+	<div class="pagination">
+		{% if paginator.has_previous %}
+		
+			<span class = "previous_page">
+				{% if artist_name %}
+					<a href ="/name/{{artist_name}}/page/{{paginator.previous_page_number}}{{current_params}}">&laquo;</a>
+			
+				{% elif query %}
+					<a href ="/search/{{query}}/page/{{paginator.previous_page_number}}{{current_params}}">&laquo;</a>
+				
+				{% endif %}
+			</span>
+		
+		{% endif %}
+		
+		{% for page_num in paginator.page_range %}
+
+			{% if artist_name %}
+				{% if page_num == paginator.current_page %}
+					<span class="current_page">										
+
+				{% else %}
+					<span class="numbered_page">	
+				
+				{% endif %}
+					<a href ="/name/{{artist_name}}/page/{{page_num}}{{current_params}}">{{page_num}}</a>
+					</span>
+			{% endif %}
+
+			{% if query %}
+				{% if page_num == paginator.current_page %}
+					<span class="current_page">			
+					
+				{% else %}
+					<span class="numbered_page">
+
+				{% endif %}
+					<a href ="/search/{{query}}/page/{{page_num}}{{current_params}}">{{page_num}}</a>
+					</span>
+			{% endif %}
+
+		{% endfor %}
+		
+		
+		{% if paginator.has_next %}
+		
+			<span class = "next_page">
+				{% if artist_name %}
+					<a href ="/name/{{artist_name}}/page/{{paginator.next_page_number}}{{current_params}}">&raquo;</a>
+			
+				{% elif query %}
+					<a href ="/search/{{query}}/page/{{paginator.next_page_number}}{{current_params}}">&raquo;</a>
+				
+				{% endif %}
+			</span>
+		
+		{% endif %}
+		
+	</div>
+
+{% endblock posts %}
+
+
+</html>

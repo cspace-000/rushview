@@ -1,0 +1,45 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  
+{% block head %}
+	{{block.super}}
+	<title>Authentication - rushview</title>
+	<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/about.css' %}">
+	
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<div class='info'>
+	<h1>Authentication</h1>
+	<p>We've generated the OAuth request token (<code>{{ oauth_token }}</code>) and are ready for you to authorize <strong>rushview</strong>!
+		Just click the button below, you'll be taken to Twitter to login (if you aren't already) and to grant access to
+		<strong>rushview</strong>. Afterward you'll be redirected back to us.</p>
+		
+	
+</div>
+
+<div class= 'authorize-btn'>
+	<p><a href="{{ authorization_url }}" class="btn btn-small btn-success">Authorize Rushview</a></p>
+
+</div>
+
+
+
+
+
+{% endblock sidebar %}
+
+{% block posts %}{% endblock posts %}
+
+
+
+
+
+

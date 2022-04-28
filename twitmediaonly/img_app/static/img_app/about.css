@@ -1,0 +1,23 @@
+#sidebar{	
+	float: none;
+	width: auto;
+
+}
+
+
+.info{
+	margin-bottom:30px;
+
+}
+
+.info a{
+	color: #1d9bf0;
+	padding: 0px 0px 0px 0px;
+	
+}
+
+#sidebar a{
+	  padding: 0px 0px 0px 0px;
+}
+
+

@@ -1,0 +1,134 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  
+{% block head %}
+	{{block.super}}
+	<title>tweet id {{tweet_id}} - rushview</title>
+	{% if tweet_objs %} 
+		{% if tweet_text %}
+			<meta name="description" content = "{{tweet_text}}">
+		{% else %}
+			<meta name="description" content = "Viewing media in Tweet #{{tweet_id}}">
+			
+		{% endif %}
+	{% else %}
+		<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	{% endif %}
+	
+	<script src = "{% static 'img_app/post.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/post.css' %}">
+	
+{% endblock %}
+
+
+{% block sidebar %}
+	{{block.super}}
+
+	<h1>Display</h1>
+	<div>
+		<select id="image-resize-selector" class = "button resize">
+			
+			<option value="fit">Fit (Horizontal)</option>
+			<option value="fitv">Fit (Vertical)</option>
+			<option value="sample">Sample</option>		
+		
+		</select>
+	
+	</div>
+	
+	
+	<div>
+	{% if session_name %}
+		<a href ="/name/{{artist_name}}/page/0{{current_params}}">Back to Search Results</a>	
+	{% endif%}
+	
+	{% if query %}
+		<a href ="/search/{{query}}/page/0{{current_params}}">Back to Search Results</a>
+	{% endif %}
+		
+	</div>
+				
+{% endblock sidebar %}	
+
+
+{% block posts %}
+		<div class="pagination">
+			{% if previous_tweet %}
+			
+				<!-- <span class = "previous_page"> -->
+					<a href ="{% url 'img_app:post' previous_tweet.tweet_id %}{{current_params}}">Previous</a>
+					
+				<!-- </span> -->
+			
+			{% endif %}
+			
+			{% if artist_name %}
+				<!-- <div class = "button artist_name"> -->
+					<a href ="/name/{{artist_name}}/page/0{{current_params}}">@{{artist_name}}</a>
+				<!-- </div> -->
+			{% endif %}		
+			
+			{% if next_tweet %}
+			
+				<!-- <span class = "next_page"> -->
+					<a href ="{% url 'img_app:post' next_tweet.tweet_id %}{{current_params}}">Next</a>
+					
+				<!-- </span> -->
+			
+			{% endif %}
+		</div>
+
+
+	{% if tweet_objs %} 
+		{% for tweet in tweet_objs %}
+			<div class="post_container {{tweet.media_type}}">		
+				{% if tweet.media_type != 'photo' %}
+			
+					<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark" data-conversation="none">
+						<a href="https://twitter.com/x/status/{{tweet.tweet_id}}"></a>
+					</blockquote> 
+					<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+				
+				{% else %}
+					<div class = "post {{tweet.media_type}}">
+						<a href= {{tweet.href}}> 
+						<img src = {{tweet.href}} alt = "{{tweet.tweet_text}}"></img>
+						</a>
+					</div>
+
+				{% endif %}
+				<div class="post_score {{tweet.media_type}}">
+					<span class = "post_reply_count">&#9993;{{tweet.reply_count}} </span>
+					<span class = "post_retweet_count">&#8646;{{tweet.retweet_count}} </span>
+					<span class = "post_like_count">&#10084;{{tweet.like_count}} </span>
+				</div>
+			</div>	
+		{% endfor %}
+		
+		<div class = "text_container">
+			<h1>Description</h1><a href="https://twitter.com/x/status/{{tweet_id}}">Tweet Link <i class="fa-brands fa-twitter"></i></a>
+			<p>{{tweet_text}}</p>
+			
+		</div>
+
+
+		
+
+	{% else %}
+		<p>No matching results. </p>
+		{% if not authenticated %}
+			<div class = 'authenticate'>		
+				<a href="{% url 'img_app:authenticate' %}"><strong>Authorize Rushview to use its features.</strong></a>
+			</div>		
+		{% endif %}		
+	{% endif %}	
+	
+	
+
+{% endblock posts %}
+
+
+</html>

@@ -1,0 +1,43 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  
+{% block head %}
+	{{block.super}}
+	<title>About - rushview</title>
+	<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/about.css' %}">
+	
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<div class='info'>
+	<h1>About us</h1>
+	<p>Browse pictures and videos on Twitter. View your favorite artist's photos, or browse 
+	using a key word search.</p>
+</div>
+<div class='info'>
+	<h1>Contact</h1>
+	<p>You can read the administrator of this site at rushviewcontact@gmail.com</p>
+</div>
+<div class='info'>	
+	<h1>Privacy Policy </h1>
+	<p>This site does use cookies to store information about visitors preferences, 
+	record user-specific information on which pages the user access or visit, 
+	customize Web page content based on visitors browser type or other information 
+	that the visitor sends via their browser. </p>
+</div>
+
+
+
+
+
+{% endblock sidebar %}
+
+{% block posts %}{% endblock posts %}
+

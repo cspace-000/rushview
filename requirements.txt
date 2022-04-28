@@ -1,0 +1,5 @@
+#python >= 3.10.0
+
+Django >= 4.0.1
+fonttools >= 4.28.1
+tweepy >= 4.5.0

@@ -1,0 +1,45 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  
+{% block head %}
+	{{block.super}}
+	<title>Search-help - rushview</title>
+	<meta name="description" content="Rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/about.css' %}">
+	
+{% endblock %}
+
+
+{% block sidebar %}
+
+<div class='info'>
+	<h1>Search Help</h1>
+	<p>Rushview has two independent search fields that query the Twitter API.</p> 
+
+</div>
+<div class= 'info'>
+	<h1>Search by @Username</h1>
+	<p>"Search by @Username" to search by a Twitter username and return all that user's media tweets. </p>
+	<p style="display: inline-block;">Example search: </p><a href="{% url 'img_app:artist' 'ladygaga' %}">@ladygaga</a></p>
+</div>
+<div class='info'>
+	<h1>General Search</h1>
+	<p>Use "General Search" as you would for a typical search on Twitter. For a more detail on building a twitter query, see the <a href="https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query">Twitter Guide </a>on building a search query. The Twitter API currently limits search results to tweets posted within the last week.</p>
+	<p>This search supports basic boolean operators (AND, OR, NOT, Grouping, Negations). Some example searches:</p>
+
+	<p>#dog</p>
+	<p>apple OR (iphone ipad)</p>
+	<p>(happy OR happiness) lang:en -birthday -is:retweet</p>
+	<p>(happy OR happiness) place_country:GB -birthday -is:retweet</p>
+		
+</div>
+
+
+
+{% endblock sidebar %}
+
+{% block posts %}{% endblock posts %}
+

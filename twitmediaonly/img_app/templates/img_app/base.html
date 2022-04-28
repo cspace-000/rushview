@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% block head %}
+		<script src="https://kit.fontawesome.com/284d03bb54.js" crossorigin="anonymous"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{% static 'img_app/style.css' %}">
+		<link rel="icon" href="{% static 'img_app/favicon.png' %}" type="image/png">
+	{% endblock %}
+</head>
+
+<body>
+	<header id="top">
+	{% block top %}
+		<div class = "home">
+				<a href ="{% url 'img_app:index' %}" >
+				<img src="{% static 'img_app/logo.png' %}" height="40">
+				</a>
+		</div>
+	
+	{% endblock top %}
+	</header>
+	
+	
+    <div id="content">
+		<div id="sidebar">
+		{% block sidebar %} 
+	
+			<div class="s-container">			
+				<h1>Search</h1>
+				<span class = "search-help"> <a href ="{% url 'img_app:search-help' %}" >(search-help)</a></span>
+			</div>
+			<div class = 'search username'>
+
+				<form action = "{% url 'img_app:post_redirect' %}" method="post">
+					{% csrf_token %} 
+					
+					<div class = "input-section">
+							{% if artist_name %}
+								<input type = "text" name="artist_name" id="artist_name" value="@{{artist_name}}"><button type="submit"><i class="fas fa-search"></i></button>
+							{% else %}
+								<input type = "text" name="artist_name" id="artist_name" placeholder="@Username"><button type="submit"><i class="fas fa-search"></i></button>
+							
+							{% endif %}
+							
+							
+					</div>
+
+				</form>	
+			</div>
+			
+			
+			<div class = 'search query'>
+				<form action = "{% url 'img_app:post_redirect' %}" method="post">
+					{% csrf_token %} 
+					<div class = "input-section">
+						{% if query %}
+							<input type = "text" name="query" id="query" value="{{query}}"><button type="submit"><i class="fas fa-search"></i></button>
+						{% else %}
+							<input type = "text" name="query" id="query" placeholder="General Search"><button type="submit"><i class="fas fa-search"></i></button>
+						{% endif %}
+					</div>
+				</form> 
+			</div>
+			
+		
+		
+		
+		{% endblock sidebar %}		
+		</div>
+
+	
+		<div id="posts">		
+			{% block posts %}	{% endblock posts %}
+		</div>
+		
+
+    </div>
+</body>
+</html>

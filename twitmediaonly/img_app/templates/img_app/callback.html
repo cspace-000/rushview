@@ -1,0 +1,32 @@
+{% extends "img_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  
+{% block head %}
+	{{block.super}}
+	<title>About - rushview</title>
+	<meta name="description" content="rushview gives you an easy way to quickly browse all of a celebrities photos, an artist's gallery, or media matching a keyword search.">
+	<link rel="stylesheet" type="text/css" href="{% static 'img_app/about.css' %}">
+	
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+<div class='info'>
+	<h1>Error with Callback</h1>
+	<p>Could not authenticate sign in.</p>
+</div>
+
+
+
+
+
+
+{% endblock sidebar %}
+
+{% block posts %}{% endblock posts %}
+
