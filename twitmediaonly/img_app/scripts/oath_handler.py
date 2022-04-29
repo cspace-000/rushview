@@ -47,8 +47,7 @@ def callback_oath1handler(oauth_token, oauth_verifier, oauth_token_secret):
     access_token_secret = None    
     error_message = None
     
-    try:
-        auth = load_auth()    
+    try:  
         oauth1_user_handler = tweepy.OAuth1UserHandler(consumer_key = settings.CONSUMER_KEY,
                                                 consumer_secret = settings.CONSUMER_SECRET,
                                                 callback='https://www.rushview.net/callback')

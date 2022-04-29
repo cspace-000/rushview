@@ -35,7 +35,7 @@ ACCESS_TOKEN_SECRET = config['access_token_secret']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
