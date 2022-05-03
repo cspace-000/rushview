@@ -39,16 +39,16 @@
 	{% if query %}
 		<!-- <p> {{query}} </p> -->
 		{% if display_order == "top" %}
+			<a href ="/search/{{query}}/page/0?order=recent">Recent</a>
 			<span class = "current-display">
 				<a href ="/search/{{query}}/page/0?order=top">Top</a>
-			</span>
-			<a href ="/search/{{query}}/page/0?order=recent">Recent</a>	
+			</span>			
 		{% else %}
-
-			<a href ="/search/{{query}}/page/0?order=top">Top</a>
 			<span class = "current-display">
 				<a href ="/search/{{query}}/page/0?order=recent">Recent</a>	
 			</span>
+			<a href ="/search/{{query}}/page/0?order=top">Top</a>
+
 		{% endif %}
 		
 	
@@ -57,17 +57,16 @@
 	{% if artist_name %}
 		<!-- <p> {{artist_name}} </p> -->
 		{% if display_order == "top" %}
+			<a href ="/name/{{artist_name}}/page/0?order=recent">Recent</a>
 			<span class = "current-display">
 				<a href ="/name/{{artist_name}}/page/0?order=top">Top</a>
-			</span>
-			<a href ="/name/{{artist_name}}/page/0?order=recent">Recent</a>	
+			</span>			
 		{% else %}
-
-			<a href ="/name/{{artist_name}}/page/0?order=top">Top</a>
-			<span class = "current-display">
-			
+			<span class = "current-display">			
 				<a href ="/name/{{artist_name}}/page/0?order=recent">Recent</a>	
 			</span>
+			<a href ="/name/{{artist_name}}/page/0?order=top">Top</a>
+
 		{% endif %}
 	{% endif %}			
 

@@ -1,9 +1,8 @@
 import tweepy
 
 import urllib.parse
-import tweepy, json
+import json
 
-import os
 from django.conf import settings
 
 def create_oath1_user_handler():
